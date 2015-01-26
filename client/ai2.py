@@ -176,8 +176,8 @@ class SarsaAI:
 		if int(state.myPos.x) == -1:
 			del data[basictypes.Actions.goright]"""
 
-		print state
-		print state.toStr()
+		#print state
+		#print state.toStr()
 		self.q_data[state.toStr()] = data
 
 	def getWorldModelState(self, wm):
