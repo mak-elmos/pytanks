@@ -57,7 +57,7 @@ class Manager:
 		if not self.connection.send(parser.compress(parser.data2str(self.command))):
 			return False
 
-		self.wm.init(self.info.pid, first_data[1])
+		self.wm.init(self.info.pid, first_data[1], int(first_data[2]))
 		self.ai_q.init(copy.deepcopy(self.wm))
 		self.ai_sarsa.init(copy.deepcopy(self.wm))
 		self.gui.init(self.wm, self.info.monitor_width, self.info.monitor_height)
@@ -132,8 +132,16 @@ class Manager:
 			#print self.wm
 
 			if self.showgui:
-				self.gui.show(self.wm)
+				winner = basictypes.Teams.none
+				if self.wm.score_left >= self.wm.max_score:
+					winner = basictypes.Teams.left
+				elif self.wm.score_right >= self.wm.max_score:
+					winner = basictypes.Teams.right
+
+				self.gui.show(self.wm, winner)
+
 			self.gui.fillActionsAndEvents()
+
 			if self.showgui:
 				self.gui.playSound(self.wm)
 

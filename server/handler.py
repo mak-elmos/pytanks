@@ -200,13 +200,13 @@ class Handler(object):
 			for block in wm.blocks:
 				condition_x = cmp(before_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) * cmp(after_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) <= 0 and abs(obj.position.y - block.position.y) < obj.radius + block.height / 2.0          
 				condition_y = cmp(before_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) * cmp(after_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) <= 0 and abs(obj.position.x - block.position.x) < obj.radius + block.width / 2.0
-				condition_2 = abs((block.position - obj.position).x) < obj.radius + block.width / 2.0 and abs((block.position - obj.position).y) <= obj.radius + block.height /2
+				condition_2 = abs((block.position - obj.position).x) < obj.radius + block.width / 2.0 and abs((block.position - obj.position).y) <= obj.radius + block.height / 2
 				if condition_x or condition_y or condition_2:
 					Handler.bomb_explosion(wm, obj, block)
 					break
 
 			for tank in wm.tanks.values():
-				if abs((tank.position - obj.position).x) < obj.radius + tank.size.x / 2.0 and abs((tank.position - obj.position).y) <= obj.radius + tank.size.y /2: 
+				if abs((tank.position - obj.position).x) < obj.radius + tank.size.x / 2.0 and abs((tank.position - obj.position).y) <= obj.radius + tank.size.y / 2: 
 					Handler.bomb_explosion(wm, obj, tank)
 
 		#check collision for tank
@@ -219,8 +219,8 @@ class Handler(object):
 			after_y  = obj.position.y + Handler.sign(obj.velocity.y) * obj.size.y / 2.0 + wm.cycle_time * obj.velocity.y + .5 *  (wm.cycle_time ** 2) * obj.acceleration.y
 			
 			for block in wm.blocks:
-				condition_x = cmp(before_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) * cmp(after_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) <= 0 and abs(obj.position.y - block.position.y)  <= obj.size.y / 2.0 + block.height / 2.0 +.001        
-				condition_y = cmp(before_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) * cmp(after_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) <= 0 and abs(obj.position.x  - block.position.x)  <= obj.size.x / 2.0 + block.width / 2.0 +.001
+				condition_x = cmp(before_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) * cmp(after_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) <= 0 and abs(obj.position.y - block.position.y)  <= obj.size.y / 2.0 + block.height / 2.0 + .01        
+				condition_y = cmp(before_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) * cmp(after_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) <= 0 and abs(obj.position.x  - block.position.x)  <= obj.size.x / 2.0 + block.width / 2.0 + .01
  
 				if condition_x:
 					obj.velocity.x = 0

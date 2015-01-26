@@ -3,6 +3,8 @@
 __author__ = 'Amin'
 
 from gamemap import *
+from vector import *
+from block import *
 
 myMap  = Map()
 
@@ -42,11 +44,10 @@ myMap.field_height = 16.0  # meter
 myMap.physics_gravity     = -15.0
 myMap.attacker_shootSpeed = 20.0
 
-import vector
-import block
-myMap.blocks.append(block.Block(vector.Vector(-10.0, 9.0), 6.0, 0.5))
-myMap.blocks.append(block.Block(vector.Vector(+10.0, 9.0), 6.0, 0.5))
+myMap.blocks.append(Block(Vector(-10.0, 9.0), 6.0, 0.5))
+myMap.blocks.append(Block(Vector(+10.0, 9.0), 6.0, 0.5))
 """
+
 
 myMap.fillBlocks()
 myMap.loadResources()

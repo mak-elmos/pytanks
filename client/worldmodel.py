@@ -20,8 +20,10 @@ class WorldModel:
 		self.tanks       = {}
 		self.bombs       = []
 
-	def init(self, pid, mapname):
+	def init(self, pid, mapname, max_score):
 		self.pid = pid
+		self.max_score = int(max_score)
+
 		self.map = loadMap(mapname)
 		self.map.guiData.decodeLoadedImages()
 

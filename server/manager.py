@@ -24,7 +24,7 @@ class Manager:
 		self.max_score = input("enter max score: ")
 
 		self.connection.startServer(host, int(port))
-		self.connection.startAcceptThread(mapname)
+		self.connection.startAcceptThread(mapname, self.max_score)
 		self.loadMapAndFillObjects(mapname)
 
 
@@ -116,6 +116,12 @@ class Manager:
 			self.connection.sendAll(send_data)
 			#print "send_len = ", len(send_data)
 
+			if self.wm.score_right >= self.max_score or self.wm.score_left >= self.max_score:
+				time.sleep(5)
+				del self.wm
+				self.wm = WorldModel()
+
+
 			recv_data = self.connection.recvAll()
 			#print "-------> recv data = ", recv_data
 			#for i in range(len(recv_data)):
@@ -127,10 +133,6 @@ class Manager:
 			if self.wm.game_state == basictypes.GameStates.play:
 				#if cycle_counter % cycle_update == 0:
 				Handler.update(self.wm, recv_data)
-				if self.wm.score_right >= self.max_score or self.wm.score_left >= self.max_score:
-					time.sleep(3)
-					del self.wm
-					self.wm = WorldModel()
 
 				#cycle_counter += 1
 

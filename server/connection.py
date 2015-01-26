@@ -34,13 +34,13 @@ class Connection:
 		for client in self.clients:
 			client.close()
 
-	def acceptClient(self, mapname):
+	def acceptClient(self, mapname, max_score):
 		while True:
 			client, addr = self.sock.accept()
 			#client.settimeout(1)
 			self.clients.append(client)
 			self.clients_sent_data.append(False)
-			self.send(self.clients_counter, str(self.clients_counter) + ' ' + mapname)
+			self.send(self.clients_counter, str(self.clients_counter) + ' ' + mapname + ' ' + str(max_score))
 
 			self.clients_received_data.append("")
 			self.clients_received_data_last.append("")
@@ -68,8 +68,8 @@ class Connection:
 				break
 
 
-	def startAcceptThread(self, mapname):
-		thread.start_new_thread(self.acceptClient, (mapname, ))
+	def startAcceptThread(self, mapname, max_score):
+		thread.start_new_thread(self.acceptClient, (mapname, max_score, ))
 
 	def startRecvThread(self, index):
 		thread.start_new_thread(self.recv, (index, ))

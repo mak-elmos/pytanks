@@ -22,6 +22,10 @@ class GraphicData:
 
 		self.fname_digits = 'digits/'
 
+		self.fname_winner_left  = 'winner/left'
+		self.fname_winner_right = 'winner/right'
+
+
 		### team colors
 		self.tank_colors_health = basictypes.TankColors()
 		self.tank_colors_mana   = basictypes.TankColors()
@@ -61,6 +65,9 @@ class GraphicData:
 		self.digits = []
 		for i in range(10):
 			self.digits.append(loadImage(self.fname_digits + str(i)))
+
+		self.winner_left  = loadImage(self.fname_winner_left)
+		self.winner_right = loadImage(self.fname_winner_right)
 
 
 class Map:

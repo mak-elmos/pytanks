@@ -30,6 +30,9 @@ class GraphicData:
 		for i in range(len(self.digits)):
 			self.digits[i] = decode(self.digits[i])
 
+		self.winner_left  = decode(self.winner_left)
+		self.winner_right = decode(self.winner_right)
+
 
 class Map:
 	pass
