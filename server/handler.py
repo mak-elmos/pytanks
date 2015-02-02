@@ -219,9 +219,8 @@ class Handler(object):
 			after_y  = obj.position.y + Handler.sign(obj.velocity.y) * obj.size.y / 2.0 + wm.cycle_time * obj.velocity.y + .5 *  (wm.cycle_time ** 2) * obj.acceleration.y
 			
 			for block in wm.blocks:
-				condition_x = cmp(before_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) * cmp(after_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) <= 0 and abs(obj.position.y - block.position.y)  <= obj.size.y / 2.0 + block.height / 2.0 + .01        
-				condition_y = cmp(before_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) * cmp(after_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) <= 0 and abs(obj.position.x  - block.position.x)  <= obj.size.x / 2.0 + block.width / 2.0 + .01
- 
+				condition_x = cmp(before_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) * cmp(after_x, block.position.x - Handler.sign(obj.velocity.x) * block.width / 2.0) <= .001 and abs(obj.position.y - block.position.y)  <= obj.size.y / 2.0 + block.height / 2.0 + .001        
+				condition_y = cmp(before_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) * cmp(after_y, block.position.y - Handler.sign(obj.velocity.y) * block.height / 2.0) <= .001 and abs(obj.position.x  - block.position.x)  <= obj.size.x / 2.0 + block.width / 2.0 + .001
 				if condition_x:
 					obj.velocity.x = 0
 					obj.acceleration.x = 0

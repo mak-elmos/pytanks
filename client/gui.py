@@ -83,7 +83,9 @@ class GUI:
 		self.defender_pics = [self.tank_defender_pic1, self.tank_defender_pic2]
 		
 		
-		self.loole = wm.map.guiData.launcher.convert_alpha()
+		self.launcher_pic1 = wm.map.guiData.launcher.convert_alpha() 
+		self.launcher_pic2 = pygame.transform.flip (wm.map.guiData.launcher.convert_alpha(), False, True)
+		self.launcher_pics = [self.launcher_pic1, self.launcher_pic2]
 		
 		
 		bomb_radius_new = int ( ( 1 - 2 * (self.offset_height_area / self.monitor_height)) * (wm.map.bomb_radius * self.meter2pixel_height) )
@@ -92,7 +94,7 @@ class GUI:
 			bomb = b.convert_alpha()
 			bomb = pygame.transform.scale (bomb , (2 * bomb_radius_new, 2 * bomb_radius_new))
 			self.bomb_pic_list.append(bomb)
-		self.goloole_pos = self.bomb_pic_list[0].get_rect ()
+		self.bomb_pos = self.bomb_pic_list[0].get_rect ()
 		
 		self.digits = []
 		for i in range (10) :
@@ -246,6 +248,10 @@ class GUI:
 					else:
 						tank_pic = self.defender_pics [1]
 				
+				if tank.team == basictypes.Teams.left :
+					launcher_pic = self.launcher_pics [0]
+				else:
+					launcher_pic = self.launcher_pics [1]
 				
 				tank_new_pos = changed_x_y ([tank.position.x, tank.position.y])
 				
@@ -267,17 +273,17 @@ class GUI:
 					else:
 						launcher_start_position = tank_width
 					
-					loole = pygame.transform.scale(self.loole, (int(float(tank.launcherLength)* self.meter2pixel_width), int(float(tank.launcherLength)*self.meter2pixel_width / 5) ) )
-					loole_pos =loole.get_rect ()
+					launcher = pygame.transform.scale(launcher_pic, (int(float(tank.launcherLength)* self.meter2pixel_width), int(float(tank.launcherLength)*self.meter2pixel_width / 5) ) )
+					launcher_pos =launcher.get_rect ()
 					tank_radian_direction = pi * tank.launcherDirection / 180.0
 					
 			
-					tank_center_x = int (tank_x_pos + launcher_start_position + (loole_pos.width * cos (tank_radian_direction) / 2) )
-					tank_center_y = int (-(loole_pos.width * sin (tank_radian_direction) / 2) + (tank_y_pos) )
+					tank_center_x = int (tank_x_pos + launcher_start_position + (launcher_pos.width * cos (tank_radian_direction) / 2) )
+					tank_center_y = int (-(launcher_pos.width * sin (tank_radian_direction) / 2) + (tank_y_pos) )
 						
 					
 						
-					tank_luncher = pygame.transform.rotate (loole, tank.launcherDirection)
+					tank_luncher = pygame.transform.rotate (launcher, tank.launcherDirection)
 					tank_luncher_pos = tank_luncher.get_rect ()
 					tank_luncher_pos.center = (tank_center_x, tank_center_y)
 					self.screen.blit (tank_luncher, tank_luncher_pos)
@@ -358,6 +364,13 @@ class GUI:
 					else:
 						mytank_pic = self.defender_pics [1]
 				
+
+				if wm.mytank.team == basictypes.Teams.left :
+					launcher_pic = self.launcher_pics [0]
+				else:
+					launcher_pic = self.launcher_pics [1]
+
+
 				mytank_new_pos = changed_x_y ([wm.mytank.position.x,  wm.mytank.position.y])
 					
 				mytank_height = int ( ( 1 - 2 * (self.offset_height_area / self.monitor_height)) * (wm.mytank.size.y * self.meter2pixel_height))
@@ -380,15 +393,15 @@ class GUI:
 						launcher_start_position = mytank_width
 					
 					mytank_radian_direction = pi * wm.mytank.launcherDirection / 180.0
-					loole = pygame.transform.scale(self.loole, (int(float(wm.mytank.launcherLength)* self.meter2pixel_width), int(float(wm.mytank.launcherLength)*self.meter2pixel_width / 5) ) )
-					loole_pos =loole.get_rect ()
-					mytank_center_x = int (mytank_x_pos + launcher_start_position + (loole_pos.width * cos (mytank_radian_direction) / 2) )
-					mytank_center_y = int (-(loole_pos.width * sin (mytank_radian_direction) / 2) + (mytank_y_pos) )
+					launcher = pygame.transform.scale(launcher_pic, (int(float(wm.mytank.launcherLength)* self.meter2pixel_width), int(float(wm.mytank.launcherLength)*self.meter2pixel_width / 5) ) )
+					launcher_pos = launcher.get_rect ()
+					mytank_center_x = int (mytank_x_pos + launcher_start_position + (launcher_pos.width * cos (mytank_radian_direction) / 2) )
+					mytank_center_y = int (-(launcher_pos.width * sin (mytank_radian_direction) / 2) + (mytank_y_pos) )
 				
 					
 					
 						
-					mytank_luncher = pygame.transform.rotate (loole, wm.mytank.launcherDirection)
+					mytank_luncher = pygame.transform.rotate (launcher, wm.mytank.launcherDirection)
 					mytank_luncher_pos = mytank_luncher.get_rect ()
 					mytank_luncher_pos.center = (mytank_center_x, mytank_center_y)
 					self.screen.blit (mytank_luncher, mytank_luncher_pos)
@@ -440,7 +453,7 @@ class GUI:
 				bomb_x_pos = int ( ( 1 - 2 * (self.offset_width_area / self.monitor_width)) * (bomb_new_pos [0] * self.meter2pixel_width)) + (self.offset_width_area)
 				
 				bomb_pic = self.bomb_pic_list [bomb.bid % 5]
-				bomb_pic_pos = self.goloole_pos
+				bomb_pic_pos = self.bomb_pos
 				bomb_pic_pos.center = (bomb_x_pos, bomb_y_pos) 
 
 				self.screen.blit (bomb_pic, bomb_pic_pos)
