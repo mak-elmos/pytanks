@@ -256,7 +256,7 @@ class QLearningAI:
 
 		if state.bombPos.y < 2.5:
 			fitness += 20.0 * abs(state.myPos.x - state.bombPos.x)
-		if abs(state.myPos.x - state.bombPos.x) < self.map_attacker_width / 2.0 + self.map_bomb_radius and abs(state.myPos.y - state.bombPos.y) < self.map_attacker_height / 2.0 + self.map_bomb_radius:
+		if abs(state.myPos.x - state.bombPos.x) < self.map_attacker_width / 2.0 + self.map_bomb_radius + 0.15 and abs(state.myPos.y - state.bombPos.y) < self.map_attacker_height / 2.0 + self.map_bomb_radius + 0.15:
 			print "------------------------------------------------------------------------------------"
 			fitness -= 1000
 
